@@ -17,9 +17,11 @@ public class MainTest {
 		for (String e : testAdresses1) {
 			separateAdressData(e);
 		}
+		
+		// print test
 
-		for(int i = 0; i < Streets.size(); i++) {
-			System.out.printf("| %-25s | %25s | %10s |%n", Streets.get(i),Streets.get(i), Numbers.get(i));
+		for (int i = 0; i < Streets.size(); i++) {
+			System.out.printf("| %-20s | %6s |%n", Streets.get(i), Numbers.get(i));
 		}
 	}
 
@@ -28,7 +30,17 @@ public class MainTest {
 		String streetFound = new String();
 		String numberFound = new String();
 
-		Pattern adressPattern = Pattern.compile("(?<=\\b|,)((?!No|b)[\\p{L}{2,}]+|(?<=\\p{L})\\s[\\p{L}{2,}]+)(?:\\b|,)");
+		// Regex for adress:(Verify boundary or ",")((Ignore "No" and "b")(Look for N
+		// size word | N size word after space after another word | Look for digits
+		// preceding "No"))(Verify boundary or
+		// ",")
+
+		Pattern adressPattern = Pattern
+				.compile("(?<=\\b|,)((?!No|b)[\\p{L}{2,}]+|(?<=\\p{L})\\s[\\p{L}{2,}]+|\\s\\d+(?=\\s+No))(?:\\b|,)");
+
+		// Regex for numb er:(Ignore numbers before "No")(Verify boundary or ",")(Look
+		// for: number before space before word | "No" | Number+letter sequence )(Verify
+		// boundary or ",");
 
 		Pattern numberPattern = Pattern.compile("(?!(?:.*\\bNo\\b.*\\d))(?:\\b|,)(\\d+\\s\\w|No\\s|\\d+\\w*)(?:\\b|,)");
 
